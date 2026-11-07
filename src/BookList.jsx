@@ -1,8 +1,17 @@
-function BookList({ booksCount }) {
+function BookList({ booksNames, onDelete }) {
   return (
     <>
       <h1>My Books</h1>
-      <p>{booksCount} books added</p>
+      <ul>
+        {booksNames.map((item, index) => (
+          <li key={index}>
+            {item}{" "}
+            <button type="button" onClick={() => onDelete(index)}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
