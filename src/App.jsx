@@ -6,6 +6,7 @@ function App() {
   const [text, setText] = useState("");
   const [booksNames, setBooksNames] = useState([]);
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
 
   const AddBook = () => {
     if (!text.trim()) return;
@@ -38,15 +39,15 @@ function App() {
   };
 
   const filteredBooks = booksNames.filter((book) => {
-    if (filter === "Read") {
-      return book.isRead;
-    }
+    const matchesSearch = book.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesFilter =
+      filter === "All" ||
+      (filter === "Read" && book.isRead) ||
+      (filter === "Unread" && !book.isRead);
 
-    if (filter === "Unread") {
-      return !book.isRead;
-    }
-
-    return true;
+    return matchesSearch && matchesFilter;
   });
 
   return (
@@ -55,6 +56,14 @@ function App() {
       <button onClick={() => setFilter("All")}>All</button>
       <button onClick={() => setFilter("Read")}>Read</button>
       <button onClick={() => setFilter("Unread")}>Unread</button>
+
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search books..."
+      />
+
       <BookList
         booksNames={filteredBooks}
         onDelete={DeleteBook}
