@@ -7,6 +7,8 @@ function App() {
   const [booksNames, setBooksNames] = useState([]);
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [author, setAuthor] = useState("");
+  const [genre, setGenre] = useState("");
 
   const AddBook = () => {
     if (!text.trim()) return;
@@ -14,10 +16,14 @@ function App() {
       ...booksNames,
       {
         title: text,
-        isRead: false,
+        status: "Unread",
+        author: author,
+        genre: genre,
       },
     ]);
     setText("");
+    setAuthor("");
+    setGenre("");
   };
 
   const DeleteBook = (indexToDelete) => {
@@ -27,10 +33,10 @@ function App() {
     setBooksNames(updatedBooks);
   };
 
-  const MarkAsRead = (indexToUpdate) => {
+  const MarkUpdate = (indexToUpdate) => {
     const updatedBooks = booksNames.map((book, index) => {
-      if (index == indexToUpdate) {
-        return { ...book, isRead: true };
+      if (index === indexToUpdate) {
+        return { ...book, status: "Read" };
       } else {
         return book;
       }
@@ -44,18 +50,34 @@ function App() {
       .includes(search.toLowerCase());
     const matchesFilter =
       filter === "All" ||
-      (filter === "Read" && book.isRead) ||
-      (filter === "Unread" && !book.isRead);
+      (filter === "Read" && book.status === "Read") ||
+      (filter === "Unread" && book.status === "Unread") ||
+      (filter === "Reading" && book.status === "Reading") ||
+      (filter === "DNF" && book.status === "DNF");
 
     return matchesSearch && matchesFilter;
   });
+
+  const UpdateBookStatus = (title, newStatus) => {
+    const updatedBooks = booksNames.map((book) => {
+      if (book.title === title) {
+        return { ...book, status: newStatus };
+      } else {
+        return book;
+      }
+    });
+
+    setBooksNames(updatedBooks);
+  };
 
   return (
     <>
       <Header />
       <button onClick={() => setFilter("All")}>All</button>
-      <button onClick={() => setFilter("Read")}>Read</button>
       <button onClick={() => setFilter("Unread")}>Unread</button>
+      <button onClick={() => setFilter("Reading")}>Reading</button>
+      <button onClick={() => setFilter("Read")}>Read</button>
+      <button onClick={() => setFilter("DNF")}>DNF</button>
 
       <input
         type="text"
@@ -67,13 +89,33 @@ function App() {
       <BookList
         booksNames={filteredBooks}
         onDelete={DeleteBook}
-        onMarkAsRead={MarkAsRead}
+        onMarkAsRead={MarkUpdate}
+        onUpdateStatus={UpdateBookStatus}
       />
       <input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        placeholder="Enter book name"
       />
+      <input
+        type="text"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        placeholder="Enter author name"
+      />
+
+      <select value={genre} onChange={(e) => setGenre(e.target.value)}>
+        <option value="">Select Genre (Optional)</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Romance">Romance</option>
+        <option value="Thriller">Thriller</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Science Fiction">Science Fiction</option>
+        <option value="Non-fiction">Non-fiction</option>
+        <option value="Other">Other</option>
+      </select>
+
       <button type="submit" onClick={AddBook}>
         Add Book
       </button>
