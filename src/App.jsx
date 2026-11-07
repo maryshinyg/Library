@@ -8,19 +8,42 @@ function App() {
 
   const AddBook = () => {
     if (!text.trim()) return;
-    setBooksNames([...booksNames, text.trim()]);
+    setBooksNames([
+      ...booksNames,
+      {
+        title: text,
+        isRead: false,
+      },
+    ]);
     setText("");
   };
+
   const DeleteBook = (indexToDelete) => {
     const updatedBooks = booksNames.filter(
       (_, index) => index !== indexToDelete,
     );
     setBooksNames(updatedBooks);
   };
+
+  const MarkAsRead = (indexToUpdate) => {
+    const updatedBooks = booksNames.map((book, index) => {
+      if (index == indexToUpdate) {
+        return { ...book, isRead: true };
+      } else {
+        return book;
+      }
+    });
+    setBooksNames(updatedBooks);
+  };
+
   return (
     <>
       <Header />
-      <BookList booksNames={booksNames} onDelete={DeleteBook} />
+      <BookList
+        booksNames={booksNames}
+        onDelete={DeleteBook}
+        onMarkAsRead={MarkAsRead}
+      />
       <input
         type="text"
         value={text}
