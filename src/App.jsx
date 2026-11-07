@@ -5,6 +5,7 @@ import { useState } from "react";
 function App() {
   const [text, setText] = useState("");
   const [booksNames, setBooksNames] = useState([]);
+  const [filter, setFilter] = useState("All");
 
   const AddBook = () => {
     if (!text.trim()) return;
@@ -36,11 +37,26 @@ function App() {
     setBooksNames(updatedBooks);
   };
 
+  const filteredBooks = booksNames.filter((book) => {
+    if (filter === "Read") {
+      return book.isRead;
+    }
+
+    if (filter === "Unread") {
+      return !book.isRead;
+    }
+
+    return true;
+  });
+
   return (
     <>
       <Header />
+      <button onClick={() => setFilter("All")}>All</button>
+      <button onClick={() => setFilter("Read")}>Read</button>
+      <button onClick={() => setFilter("Unread")}>Unread</button>
       <BookList
-        booksNames={booksNames}
+        booksNames={filteredBooks}
         onDelete={DeleteBook}
         onMarkAsRead={MarkAsRead}
       />
