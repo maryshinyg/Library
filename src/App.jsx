@@ -4,9 +4,17 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [text, setText] = useState("");
+
   const [booksNames, setBooksNames] = useState(() => {
     const savedBooks = localStorage.getItem("books");
-    return savedBooks ? JSON.parse(savedBooks) : [];
+    if (!savedBooks) return [];
+    const books = JSON.parse(savedBooks);
+    const booksWithIds = books.map((book) => ({
+      ...book,
+      id: book.id ?? crypto.randomUUID(),
+    }));
+    localStorage.setItem("books", JSON.stringify(booksWithIds));
+    return booksWithIds;
   });
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
@@ -18,6 +26,7 @@ function App() {
     setBooksNames([
       ...booksNames,
       {
+        id: crypto.randomUUID(),
         title: text,
         status: "Unread",
         author: author,
@@ -30,10 +39,8 @@ function App() {
     setGenre("");
   };
 
-  const DeleteBook = (indexToDelete) => {
-    const updatedBooks = booksNames.filter(
-      (_, index) => index !== indexToDelete,
-    );
+  const DeleteBook = (bookId) => {
+    const updatedBooks = booksNames.filter((book) => book.id !== bookId);
     setBooksNames(updatedBooks);
   };
 
@@ -51,9 +58,9 @@ function App() {
     return matchesSearch && matchesFilter;
   });
 
-  const UpdateBookStatus = (title, newStatus) => {
+  const UpdateBookStatus = (id, newStatus) => {
     const updatedBooks = booksNames.map((book) => {
-      if (book.title === title) {
+      if (book.id === id) {
         return { ...book, status: newStatus };
       } else {
         return book;
@@ -63,9 +70,9 @@ function App() {
     setBooksNames(updatedBooks);
   };
 
-  const UpdateBookRating = (bookTitle, newRating) => {
+  const UpdateBookRating = (bookId, newRating) => {
     const updateRating = booksNames.map((book) => {
-      if (book.title === bookTitle) {
+      if (book.id === bookId) {
         return {
           ...book,
           rating: newRating === "" ? null : Number(newRating),

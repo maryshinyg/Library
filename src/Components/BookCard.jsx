@@ -1,4 +1,4 @@
-function BookCard({ item, index, onDelete, onUpdateStatus, onUpdateRating }) {
+function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
   return (
     <>
       <li>
@@ -9,7 +9,7 @@ function BookCard({ item, index, onDelete, onUpdateStatus, onUpdateRating }) {
 
         <select
           value={item.status}
-          onChange={(e) => onUpdateStatus(item.title, e.target.value)}
+          onChange={(e) => onUpdateStatus(item.id, e.target.value)}
         >
           <option value="">Update the Status</option>
           <option value="Read">Read</option>
@@ -22,7 +22,7 @@ function BookCard({ item, index, onDelete, onUpdateStatus, onUpdateRating }) {
             <p>Rating: {item.rating}</p>
             <select
               value={item.rating ?? ""}
-              onChange={(e) => onUpdateRating(item.title, e.target.value)}
+              onChange={(e) => onUpdateRating(item.id, e.target.value)}
             >
               <option value="">No Rating</option>
               <option value="1">1</option>
@@ -33,7 +33,7 @@ function BookCard({ item, index, onDelete, onUpdateStatus, onUpdateRating }) {
             </select>
           </>
         )}
-        <button type="button" onClick={() => onDelete(index)}>
+        <button type="button" onClick={() => onDelete(item.id)}>
           Delete
         </button>
       </li>

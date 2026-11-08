@@ -1,20 +1,13 @@
 import BookCard from "./BookCard";
-function BookList({
-  booksNames,
-  onDelete,
-  onMarkAsRead,
-  onUpdateStatus,
-  onUpdateRating,
-}) {
+function BookList({ booksNames, onDelete, onUpdateStatus, onUpdateRating }) {
   return (
     <>
       <h1>My Books</h1>
       <ul>
-        {booksNames.map((item, index) => (
+        {booksNames.map((item) => (
           <BookCard
-            key={`${item.title}-${index}`}
+            key={item.id}
             item={item}
-            index={index}
             onDelete={onDelete}
             onUpdateStatus={onUpdateStatus}
             onUpdateRating={onUpdateRating}
