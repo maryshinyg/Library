@@ -1,10 +1,13 @@
 import Header from "./Header";
 import BookList from "./BookList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [text, setText] = useState("");
-  const [booksNames, setBooksNames] = useState([]);
+  const [booksNames, setBooksNames] = useState(() => {
+    const savedBooks = localStorage.getItem("books");
+    return savedBooks ? JSON.parse(savedBooks) : [];
+  });
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [author, setAuthor] = useState("");
@@ -84,6 +87,11 @@ function App() {
     });
     setBooksNames(updateRating);
   };
+
+  useEffect(() => {
+    localStorage.setItem("books", JSON.stringify(booksNames));
+  }, [booksNames]);
+
   return (
     <>
       <Header />
