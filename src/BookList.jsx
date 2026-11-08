@@ -1,4 +1,10 @@
-function BookList({ booksNames, onDelete, onMarkAsRead, onUpdateStatus }) {
+function BookList({
+  booksNames,
+  onDelete,
+  onMarkAsRead,
+  onUpdateStatus,
+  onUpdateRating,
+}) {
   return (
     <>
       <h1>My Books</h1>
@@ -20,6 +26,22 @@ function BookList({ booksNames, onDelete, onMarkAsRead, onUpdateStatus }) {
               <option value="DNF">DNF</option>
             </select>
 
+            {item.status === "Read" && (
+              <>
+                <p>Rating: {item.rating}</p>
+                <select
+                  value={item.rating ?? ""}
+                  onChange={(e) => onUpdateRating(item.title, e.target.value)}
+                >
+                  <option value="">No Rating</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </>
+            )}
             <button type="button" onClick={() => onDelete(index)}>
               Delete
             </button>

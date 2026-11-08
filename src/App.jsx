@@ -19,6 +19,7 @@ function App() {
         status: "Unread",
         author: author,
         genre: genre,
+        rating: null,
       },
     ]);
     setText("");
@@ -70,6 +71,19 @@ function App() {
     setBooksNames(updatedBooks);
   };
 
+  const UpdateBookRating = (bookTitle, newRating) => {
+    const updateRating = booksNames.map((book) => {
+      if (book.title === bookTitle) {
+        return {
+          ...book,
+          rating: newRating === "" ? null : Number(newRating),
+        };
+      } else {
+        return book;
+      }
+    });
+    setBooksNames(updateRating);
+  };
   return (
     <>
       <Header />
@@ -91,6 +105,7 @@ function App() {
         onDelete={DeleteBook}
         onMarkAsRead={MarkUpdate}
         onUpdateStatus={UpdateBookStatus}
+        onUpdateRating={UpdateBookRating}
       />
       <input
         type="text"
