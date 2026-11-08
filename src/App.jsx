@@ -1,5 +1,5 @@
-import Header from "./Header";
-import BookList from "./BookList";
+import Header from "./Components/Header";
+import BookList from "./Components/BookList";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -34,17 +34,6 @@ function App() {
     const updatedBooks = booksNames.filter(
       (_, index) => index !== indexToDelete,
     );
-    setBooksNames(updatedBooks);
-  };
-
-  const MarkUpdate = (indexToUpdate) => {
-    const updatedBooks = booksNames.map((book, index) => {
-      if (index === indexToUpdate) {
-        return { ...book, status: "Read" };
-      } else {
-        return book;
-      }
-    });
     setBooksNames(updatedBooks);
   };
 
@@ -111,7 +100,6 @@ function App() {
       <BookList
         booksNames={filteredBooks}
         onDelete={DeleteBook}
-        onMarkAsRead={MarkUpdate}
         onUpdateStatus={UpdateBookStatus}
         onUpdateRating={UpdateBookRating}
       />
