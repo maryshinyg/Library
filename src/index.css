@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: url("./assets/library-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+}
+.library-layout {
+  display: flex;
+  min-height: 90vh;
+  margin: 30px;
+  background: rgba(35, 35, 40, 0.45);
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  color: #eee;
+}
+.sidebar {
+  width: 220px;
+  padding: 25px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.sidebar button {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  padding: 12px;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.sidebar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+.main-content {
+  flex: 1;
+  padding: 30px;
+  min-width: 0;
+}

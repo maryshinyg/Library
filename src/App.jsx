@@ -1,5 +1,6 @@
 import Header from "./Components/Header";
 import BookList from "./Components/BookList";
+import LibraryLayout from "./Components/LibraryLayout";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   const [booksNames, setBooksNames] = useState(() => {
     const savedBooks = localStorage.getItem("books");
     if (!savedBooks) return [];
+
     const books = JSON.parse(savedBooks);
     const booksWithIds = books.map((book) => ({
       ...book,
@@ -89,13 +91,8 @@ function App() {
   }, [booksNames]);
 
   return (
-    <>
+    <LibraryLayout filter={filter} setFilter={setFilter}>
       <Header />
-      <button onClick={() => setFilter("All")}>All</button>
-      <button onClick={() => setFilter("Unread")}>Unread</button>
-      <button onClick={() => setFilter("Reading")}>Reading</button>
-      <button onClick={() => setFilter("Read")}>Read</button>
-      <button onClick={() => setFilter("DNF")}>DNF</button>
 
       <input
         type="text"
@@ -137,8 +134,7 @@ function App() {
       <button type="submit" onClick={AddBook}>
         Add Book
       </button>
-      <p>Keep track of the books you're reading.</p>
-    </>
+    </LibraryLayout>
   );
 }
 
