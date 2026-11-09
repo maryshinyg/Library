@@ -1,7 +1,7 @@
 function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
   return (
     <>
-      <li>
+      <li className="book-card">
         <h3>{item.title}</h3>
         <p>Author: {item.author}</p>
         <p>Genre: {item.genre || "Not specified"}</p>

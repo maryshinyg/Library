@@ -92,14 +92,47 @@ function App() {
 
   return (
     <LibraryLayout filter={filter} setFilter={setFilter}>
-      <Header />
+      <div className="top-bar">
+        <Header />
 
-      <input
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search books..."
-      />
+        <input
+          className="search-input"
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search books..."
+        />
+      </div>
+
+      <div className="add-book-section">
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Enter book name"
+        />
+        <input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          placeholder="Enter author name"
+        />
+
+        <select value={genre} onChange={(e) => setGenre(e.target.value)}>
+          <option value="">Select Genre (Optional)</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Romance">Romance</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Non-fiction">Non-fiction</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <button type="submit" onClick={AddBook}>
+          Add Book
+        </button>
+      </div>
 
       <BookList
         booksNames={filteredBooks}
@@ -107,33 +140,6 @@ function App() {
         onUpdateStatus={UpdateBookStatus}
         onUpdateRating={UpdateBookRating}
       />
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter book name"
-      />
-      <input
-        type="text"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-        placeholder="Enter author name"
-      />
-
-      <select value={genre} onChange={(e) => setGenre(e.target.value)}>
-        <option value="">Select Genre (Optional)</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Romance">Romance</option>
-        <option value="Thriller">Thriller</option>
-        <option value="Mystery">Mystery</option>
-        <option value="Science Fiction">Science Fiction</option>
-        <option value="Non-fiction">Non-fiction</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <button type="submit" onClick={AddBook}>
-        Add Book
-      </button>
     </LibraryLayout>
   );
 }

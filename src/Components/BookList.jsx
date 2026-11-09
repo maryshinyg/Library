@@ -3,7 +3,7 @@ function BookList({ booksNames, onDelete, onUpdateStatus, onUpdateRating }) {
   return (
     <>
       <h1>My Books</h1>
-      <ul>
+      <ul className="book-grid">
         {booksNames.map((item) => (
           <BookCard
             key={item.id}
