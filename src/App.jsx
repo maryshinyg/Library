@@ -120,11 +120,14 @@ function App() {
 
         <select value={genre} onChange={(e) => setGenre(e.target.value)}>
           <option value="">Select Genre (Optional)</option>
+          <option value="Classic">Classic</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Thriller">Thriller</option>
           <option value="Fantasy">Fantasy</option>
-          <option value="Romance">Romance</option>
+          <option value="Literary Fiction">Literary Fiction</option>
           <option value="Thriller">Thriller</option>
           <option value="Mystery">Mystery</option>
-          <option value="Science Fiction">Science Fiction</option>
+          <option value="Romance">Romance</option>
           <option value="Non-fiction">Non-fiction</option>
           <option value="Other">Other</option>
         </select>
