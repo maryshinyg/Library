@@ -133,3 +133,27 @@ body {
 .book-card button:hover {
   background: #9d0202;
 }
+
+.rating-stars .star-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #e5b84b;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star-button:hover {
+  background: transparent;
+  color: #e5b84b;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+.star-button:not(.filled) {
+  color: #888;
+}

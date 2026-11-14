@@ -19,18 +19,22 @@ function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
 
         {item.status === "Read" && (
           <>
-            <p>Rating: {item.rating}</p>
-            <select
-              value={item.rating ?? ""}
-              onChange={(e) => onUpdateRating(item.id, e.target.value)}
-            >
-              <option value="">No Rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            <div className="rating-stars">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  className={
+                    star <= (item.rating || 0)
+                      ? "star-button filled"
+                      : "star-button"
+                  }
+                  onClick={() => onUpdateRating(item.id, star)}
+                >
+                  {star <= (item.rating || 0) ? "★" : "☆"}
+                </button>
+              ))}
+            </div>
           </>
         )}
         <button type="button" onClick={() => onDelete(item.id)}>
