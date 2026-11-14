@@ -1,7 +1,18 @@
-function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
+function BookCard({
+  item,
+  onDelete,
+  onUpdateStatus,
+  onUpdateRating,
+  onSelectBook,
+}) {
   return (
     <>
-      <li className="book-card">
+      <li
+        className="book-card"
+        onClick={() => {
+          onSelectBook(item);
+        }}
+      >
         <h3>{item.title}</h3>
         <p>Author: {item.author}</p>
         <p>Genre: {item.genre || "Not specified"}</p>
@@ -10,6 +21,7 @@ function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
         <select
           value={item.status}
           onChange={(e) => onUpdateStatus(item.id, e.target.value)}
+          onClick={(e) => e.stopPropagation()}
         >
           <option value="">Update the Status</option>
           <option value="Read">Read</option>
@@ -29,7 +41,10 @@ function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
                       ? "star-button filled"
                       : "star-button"
                   }
-                  onClick={() => onUpdateRating(item.id, star)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onUpdateRating(item.id, star);
+                  }}
                 >
                   {star <= (item.rating || 0) ? "★" : "☆"}
                 </button>
@@ -37,7 +52,13 @@ function BookCard({ item, onDelete, onUpdateStatus, onUpdateRating }) {
             </div>
           </>
         )}
-        <button type="button" onClick={() => onDelete(item.id)}>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(item.id);
+          }}
+        >
           Delete
         </button>
       </li>

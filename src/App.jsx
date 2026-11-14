@@ -2,10 +2,15 @@ import Header from "./Components/Header";
 import BookList from "./Components/BookList";
 import LibraryLayout from "./Components/LibraryLayout";
 import { useState, useEffect } from "react";
+import BookDetails from "./Components/BookDetails";
 
 function App() {
   const [text, setText] = useState("");
-
+  const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
+  const [author, setAuthor] = useState("");
+  const [genre, setGenre] = useState("");
+  const [selectedBook, setSelectedBook] = useState(null);
   const [booksNames, setBooksNames] = useState(() => {
     const savedBooks = localStorage.getItem("books");
     if (!savedBooks) return [];
@@ -18,10 +23,6 @@ function App() {
     localStorage.setItem("books", JSON.stringify(booksWithIds));
     return booksWithIds;
   });
-  const [filter, setFilter] = useState("All");
-  const [search, setSearch] = useState("");
-  const [author, setAuthor] = useState("");
-  const [genre, setGenre] = useState("");
 
   const AddBook = () => {
     if (!text.trim()) return;
@@ -142,7 +143,14 @@ function App() {
         onDelete={DeleteBook}
         onUpdateStatus={UpdateBookStatus}
         onUpdateRating={UpdateBookRating}
+        onSelectBook={setSelectedBook}
       />
+      {selectedBook && (
+        <BookDetails
+          book={selectedBook}
+          onClose={() => setSelectedBook(null)}
+        />
+      )}
     </LibraryLayout>
   );
 }

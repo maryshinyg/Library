@@ -1,5 +1,11 @@
 import BookCard from "./BookCard";
-function BookList({ booksNames, onDelete, onUpdateStatus, onUpdateRating }) {
+function BookList({
+  booksNames,
+  onDelete,
+  onUpdateStatus,
+  onUpdateRating,
+  onSelectBook,
+}) {
   return (
     <>
       <h1>My Books</h1>
@@ -11,6 +17,7 @@ function BookList({ booksNames, onDelete, onUpdateStatus, onUpdateRating }) {
             onDelete={onDelete}
             onUpdateStatus={onUpdateStatus}
             onUpdateRating={onUpdateRating}
+            onSelectBook={onSelectBook}
           />
         ))}
       </ul>

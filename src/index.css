@@ -129,7 +129,9 @@ body {
   padding: 7px 12px;
   border-radius: 6px;
   cursor: pointer;
+  align-self: flex-start;
 }
+
 .book-card button:hover {
   background: #9d0202;
 }
@@ -156,4 +158,27 @@ body {
 
 .star-button:not(.filled) {
   color: #888;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.book-details {
+  background: rgba(35, 35, 40, 0.95);
+  color: #eee;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  width: 500px;
+  max-width: 85%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
